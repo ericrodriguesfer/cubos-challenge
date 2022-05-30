@@ -10,6 +10,7 @@
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.17.1"
   },
   "devDependencies": {

@@ -1,9 +1,7 @@
-import express, { Express, Request, Response } from 'express';
+import app from './app/app';
 
-const app: Express = express();
-
-app.get('/', async (request: Request, response: Response) => {
-  response.json({ message: 'Cubos challenge!' });
-});
-
-app.listen(3333, async () => console.log('Started...'));
+app.listen(process.env.PORT || 3333, async () =>
+  console.log(
+    `server was started on url http://localhost:${process.env.PORT || 3333}`,
+  ),
+);
