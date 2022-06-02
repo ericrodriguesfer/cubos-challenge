@@ -1,9 +1,8 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import schedulingRoutes from './scheduling.routes';
 
 const routes: Router = Router();
 
-routes.get('/', async (request: Request, response: Response) => {
-  response.json({ message: 'Cubos challenge!' });
-});
+routes.use('/scheduling', schedulingRoutes);
 
 export default routes;
