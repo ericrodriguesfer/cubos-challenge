@@ -1,6 +1,6 @@
 import Scheduling from '../models/scheduling';
 import ILoadJson from '../providers/json/load/contract/loadJson.interface';
-import LoadJsonImplementations from '../providers/json/load/implementations/loadjson.implementations';
+import LoadJsonImplementations from '../providers/json/load/implementations/loadJson.implementations';
 
 class SchedulingRepository {
   private schedulings: Array<Scheduling>;

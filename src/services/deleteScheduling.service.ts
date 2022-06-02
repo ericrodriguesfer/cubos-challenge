@@ -1,6 +1,6 @@
 import Scheduling from '../models/scheduling';
 import ISaveJson from '../providers/json/save/contract/saveJson.interface';
-import SaveJsonImplementations from '../providers/json/save/implementations/savejson.implementations';
+import SaveJsonImplementations from '../providers/json/save/implementations/saveJson.implementations';
 import SchedulingRepository from '../repositorys/scheduling.repository';
 
 class DeleteSchedulingService {
