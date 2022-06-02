@@ -5,7 +5,7 @@ import Scheduling from '../models/scheduling';
 import IIntersectionHours from '../providers/hours/intersection/contract/intersectionHours.interface';
 import IntersectionHoursImplementations from '../providers/hours/intersection/implementations/intersectionHours.implementations';
 import ISaveJson from '../providers/json/save/contract/saveJson.interface';
-import SaveJsonImplementations from '../providers/json/save/implementations/savejson.implementations';
+import SaveJsonImplementations from '../providers/json/save/implementations/saveJson.implementations';
 import SchedulingRepository from '../repositorys/scheduling.repository';
 
 class CreateSchedulingService {
