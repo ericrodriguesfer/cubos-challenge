@@ -4,19 +4,15 @@ import Interval from '../models/interval';
 import Scheduling from '../models/scheduling';
 import IIntersectionHours from '../providers/hours/intersection/contract/intersectionHours.interface';
 import IntersectionHoursImplementations from '../providers/hours/intersection/implementations/intersectionHours.implementations';
-import ISaveJson from '../providers/json/save/contract/saveJson.interface';
-import SaveJsonImplementations from '../providers/json/save/implementations/saveJson.implementations';
 import SchedulingRepository from '../repositorys/scheduling.repository';
 
 class CreateSchedulingService {
   private schedulingRepository: SchedulingRepository;
   private intersectionHours: IIntersectionHours;
-  private save: ISaveJson;
 
   constructor(schedulingRepository: SchedulingRepository) {
     this.schedulingRepository = schedulingRepository;
     this.intersectionHours = new IntersectionHoursImplementations();
-    this.save = new SaveJsonImplementations();
   }
 
   async execute({
@@ -58,11 +54,6 @@ class CreateSchedulingService {
         daysOnWeek,
         intervals: intervalsMounted,
       });
-
-    const schedulings: Array<Scheduling> =
-      await this.schedulingRepository.listAll();
-
-    await this.save.saveJson(schedulings);
 
     return schedulingCreated;
   }
