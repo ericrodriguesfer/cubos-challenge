@@ -1,22 +1,22 @@
 import Scheduling from '../models/scheduling';
 import ILoadJson from '../providers/json/load/contract/loadJson.interface';
 import LoadJsonImplementations from '../providers/json/load/implementations/loadJson.implementations';
+import ISaveJson from '../providers/json/save/contract/saveJson.interface';
+import SaveJsonImplementations from '../providers/json/save/implementations/saveJson.implementations';
 
 class SchedulingRepository {
   private schedulings: Array<Scheduling>;
   private load: ILoadJson;
+  private save: ISaveJson;
 
   constructor() {
     this.schedulings = [];
     this.load = new LoadJsonImplementations();
-  }
-
-  public async sync(): Promise<void> {
-    const schedulingsSaved: Array<Scheduling> = await this.load.loadJson();
-    this.schedulings = schedulingsSaved;
+    this.save = new SaveJsonImplementations();
   }
 
   public async listAll(): Promise<Array<Scheduling>> {
+    await this.sync();
     return this.schedulings;
   }
 
@@ -35,6 +35,9 @@ class SchedulingRepository {
 
     this.schedulings.push(scheduling);
 
+    await this.save.saveJson(this.schedulings);
+    await this.sync();
+
     return scheduling;
   }
 
@@ -47,6 +50,9 @@ class SchedulingRepository {
 
     this.schedulings.splice(index, 1);
 
+    await this.save.saveJson(this.schedulings);
+    await this.sync();
+
     return scheduling;
   }
 
@@ -58,6 +64,11 @@ class SchedulingRepository {
     );
 
     return scheduling;
+  }
+
+  private async sync(): Promise<void> {
+    const schedulingsSaved: Array<Scheduling> = await this.load.loadJson();
+    this.schedulings = schedulingsSaved;
   }
 }
 

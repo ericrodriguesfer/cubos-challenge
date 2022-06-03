@@ -4,12 +4,18 @@ import SchedulingController from '../controllers/scheduling.controller';
 import {
   createSchedulingSchema,
   deleteSchedulingSchema,
+  getSchedulingAvaliable,
 } from '../validations/scheduling.validations';
 
 const schedulingRoutes: Router = Router();
 const schedulingController: SchedulingController = new SchedulingController();
 
 schedulingRoutes.get('/', schedulingController.list);
+schedulingRoutes.get(
+  '/:start/:end',
+  celebrate({ [Segments.PARAMS]: getSchedulingAvaliable }),
+  schedulingController.listAvailable,
+);
 schedulingRoutes.post(
   '/',
   celebrate({ [Segments.BODY]: createSchedulingSchema }),

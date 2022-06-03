@@ -9,7 +9,6 @@ class ListSchedulingService {
   }
 
   async execute(): Promise<Array<Scheduling>> {
-    await this.schedulingRepository.sync();
     return this.schedulingRepository.listAll();
   }
 }

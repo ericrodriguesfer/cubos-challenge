@@ -3,7 +3,8 @@ import Scheduling from '../models/scheduling';
 import SchedulingRepository from '../repositorys/scheduling.repository';
 import CreateSchedulingService from '../services/createScheduling.service';
 import DeleteSchedulingService from '../services/deleteScheduling.service';
-import ListSchedulingService from '../services/listcreateScheduling.service';
+import ListAvaliableTimesService from '../services/listAvaliableTimes.service';
+import ListSchedulingService from '../services/listScheduling.service';
 
 const schedulingRepository: SchedulingRepository = new SchedulingRepository();
 
@@ -17,6 +18,24 @@ class SchedulingController {
         await listSchedulingService.execute();
 
       return response.json({ schedulings });
+    } catch (error) {
+      return response.status(400).json({ error: (error as Error).message });
+    }
+  }
+
+  async listAvailable(request: Request, response: Response): Promise<Response> {
+    try {
+      const { start, end } = request.params;
+
+      const listAvaliableTimesService: ListAvaliableTimesService =
+        new ListAvaliableTimesService(schedulingRepository);
+
+      const avaliables = await listAvaliableTimesService.execute({
+        start,
+        end,
+      });
+
+      return response.json(avaliables);
     } catch (error) {
       return response.status(400).json({ error: (error as Error).message });
     }
