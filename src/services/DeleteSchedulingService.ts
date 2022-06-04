@@ -1,5 +1,7 @@
-import Scheduling from '../models/scheduling';
-import SchedulingRepository from '../repositorys/scheduling.repository';
+import { NOT_FOUND } from '../constants/HttpStatus';
+import AppError from '../errors/AppError';
+import Scheduling from '../models/Scheduling';
+import SchedulingRepository from '../repositorys/SchedulingRepository';
 
 class DeleteSchedulingService {
   private schedulingRepository: SchedulingRepository;
@@ -13,7 +15,11 @@ class DeleteSchedulingService {
       await this.schedulingRepository.findById({ id });
 
     if (!scheduling) {
-      throw new Error('This scheduling not found in our database.');
+      throw new AppError(
+        'This scheduling not found in our database',
+        NOT_FOUND,
+        404,
+      );
     }
 
     const deletedScheduling: Scheduling =

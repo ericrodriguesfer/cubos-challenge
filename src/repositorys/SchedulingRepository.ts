@@ -1,8 +1,8 @@
-import Scheduling from '../models/scheduling';
-import ILoadJson from '../providers/json/load/contract/loadJson.interface';
-import LoadJsonImplementations from '../providers/json/load/implementations/loadJson.implementations';
-import ISaveJson from '../providers/json/save/contract/saveJson.interface';
-import SaveJsonImplementations from '../providers/json/save/implementations/saveJson.implementations';
+import Scheduling from '../models/Scheduling';
+import ILoadJson from '../providers/json/load/contract/LoadJsonContract';
+import LoadJsonImplementations from '../providers/json/load/implementations/LoadJsonImplementations';
+import ISaveJson from '../providers/json/save/contract/SaveJsonContract';
+import SaveJsonImplementations from '../providers/json/save/implementations/SaveJsonImplementations';
 
 class SchedulingRepository {
   private schedulings: Array<Scheduling>;
@@ -15,7 +15,7 @@ class SchedulingRepository {
     this.save = new SaveJsonImplementations();
   }
 
-  public async listAll(): Promise<Array<Scheduling>> {
+  public async find(): Promise<Array<Scheduling>> {
     await this.sync();
     return this.schedulings;
   }

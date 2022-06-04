@@ -1,11 +1,11 @@
 import { celebrate, Segments } from 'celebrate';
 import { Router } from 'express';
-import SchedulingController from '../controllers/scheduling.controller';
+import SchedulingController from '../controllers/SchedulingController';
 import {
   createSchedulingSchema,
   deleteSchedulingSchema,
   getSchedulingAvaliable,
-} from '../validations/scheduling.validations';
+} from '../validations/SchedulingValidations';
 
 const schedulingRoutes: Router = Router();
 const schedulingController: SchedulingController = new SchedulingController();

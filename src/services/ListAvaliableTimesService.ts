@@ -1,11 +1,11 @@
 import moment, { Moment } from 'moment';
-import Day from '../enums/day';
-import Frequency from '../enums/frequency';
-import Interval from '../models/interval';
-import Scheduling from '../models/scheduling';
-import IIntersectionHours from '../providers/hours/intersection/contract/intersectionHours.interface';
-import IntersectionHoursImplementations from '../providers/hours/intersection/implementations/intersectionHours.implementations';
-import SchedulingRepository from '../repositorys/scheduling.repository';
+import { CONFLICT } from '../constants/HttpStatus';
+import Day from '../enums/Day';
+import Frequency from '../enums/Frequency';
+import AppError from '../errors/AppError';
+import Interval from '../models/Interval';
+import Scheduling from '../models/Scheduling';
+import SchedulingRepository from '../repositorys/SchedulingRepository';
 
 interface ListAvaliableTimesDTO {
   start: string;
@@ -19,11 +19,9 @@ interface ListAvaliableTimesResponseDTO {
 
 class ListAvaliableTimesService {
   private schedulingRepository: SchedulingRepository;
-  private intersectionHours: IIntersectionHours;
 
   constructor(schedulingRepository: SchedulingRepository) {
     this.schedulingRepository = schedulingRepository;
-    this.intersectionHours = new IntersectionHoursImplementations();
   }
 
   async execute({
@@ -35,7 +33,11 @@ class ListAvaliableTimesService {
     const dates: Array<string> = [];
 
     if (startDate.isAfter(endDate)) {
-      throw new Error('The start date cannot be later than the end date.');
+      throw new AppError(
+        'The start date cannot be later than the end date',
+        CONFLICT,
+        409,
+      );
     }
 
     const endDateInterval: Moment = endDate.add(1, 'days');
@@ -49,7 +51,7 @@ class ListAvaliableTimesService {
     }
 
     const schedulings: Array<Scheduling> =
-      await this.schedulingRepository.listAll();
+      await this.schedulingRepository.find();
 
     const avaliableTimes: Array<ListAvaliableTimesResponseDTO> = [];
 
@@ -58,7 +60,7 @@ class ListAvaliableTimesService {
 
       schedulings.forEach(async (scheduling: Scheduling) => {
         if (scheduling.type === Frequency.DAY) {
-          if (String(scheduling.day) === date) {
+          if (scheduling.day?.toString() === date) {
             scheduling.intervals.forEach((interval: Interval) => {
               intervalsAvaliable.push(interval);
             });

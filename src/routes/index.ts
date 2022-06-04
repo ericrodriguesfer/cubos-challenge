@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import schedulingRoutes from './scheduling.routes';
+import schedulingRoutes from './SchedulingRoutes';
 
 const routes: Router = Router();
 

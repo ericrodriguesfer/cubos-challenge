@@ -1,6 +1,6 @@
 import moment from 'moment';
-import Interval from '../../../../models/interval';
-import IIntersectionHours from '../contract/intersectionHours.interface';
+import Interval from '../../../../models/Interval';
+import IIntersectionHours from '../contract/IntersectionHoursContract';
 
 class IntersectionHoursImplementations implements IIntersectionHours {
   public async exists(intervals: Interval[]): Promise<boolean> {

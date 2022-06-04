@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
-import Day from '../enums/day';
-import Frequency from '../enums/frequency';
-import Interval from './interval';
+import Day from '../enums/Day';
+import Frequency from '../enums/Frequency';
+import Interval from './Interval';
 
 class Scheduling {
   id: string;
