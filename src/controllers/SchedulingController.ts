@@ -16,7 +16,7 @@ class SchedulingController {
     const schedulings: Array<Scheduling> =
       await listSchedulingService.execute();
 
-    return response.json({ schedulings });
+    return response.json(schedulings);
   }
 
   async listAvailable(request: Request, response: Response): Promise<Response> {
