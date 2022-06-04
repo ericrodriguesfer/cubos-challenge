@@ -4,7 +4,7 @@
 
 ## Descrição
 
-Este projeto é a minha proposta de solução a um desafio da [Cubos](https://cubos.io/), desafio esse proposto por eles em uma vaga de Desenvolvedor(a) Back-end Node, onde o desafio em sua descrição consiste basicamente em criar/implementar uma api com NodeJs, para horários de atendimento em clínicas. Onde a api deve permitir criar regras de atendimento (que podem ser diárias, dia específico ou semanal), listar todas as regras de atendimento, deletar uma dada regra de atendimento, e também, deve permitir fazer um filtro passando duas datas, e dentro desse intervalo das datas passsadas é retornado cada dia do intervalo bem como os intervalos de horários para atendimento daquele dia, tudo isso baseado nas regras. A forma de armazenar os dados da api, é escrevendo em arquivos *JSON*. Caso queria saber mais do desafio, acesse a [descrição do mesmo aqui](https://gitlab.com/ericrodriguesfer/cubos-vacancy-challenge/-/tree/master/descricao).
+Este projeto é a minha proposta de solução a um desafio da [Cubos](https://cubos.io/), desafio esse proposto por eles em uma vaga de Desenvolvedor(a) Back-end Node, onde o desafio em sua descrição consiste basicamente em criar/implementar uma api com NodeJs, para horários de atendimento em clínicas. Onde a api deve permitir criar regras de atendimento (que podem ser diárias, dia específico ou semanal), listar todas as regras de atendimento, deletar uma dada regra de atendimento, e também, deve permitir fazer um filtro passando duas datas, e dentro desse intervalo das datas passsadas é retornado cada dia do intervalo bem como os intervalos de horários para atendimento daquele dia, tudo isso baseado nas regras. A forma de armazenar os dados da api, é escrevendo em arquivos *JSON*. Caso queria saber mais do desafio, acesse a [descrição do mesmo aqui](https://github.com/ericrodriguesfer/cubos-challenge/tree/master/descricao).
 
 ## Tecnologias utilizadas no projeto
 * NodeJs
@@ -98,7 +98,7 @@ npm run dev      # Opção 02
 
 Após isso você já pode realizar a utilização e exploração do projeto, caso tenha seguido todo o passo a passo como segueri, a aplicação estará rodando na seguinte url em sua máquina: http://localhost:3333.
 
-Caso queira testar/realizar as requisições/explorar o projeto por alguma ferramenta dedicada para depurar e executar apis/back-end, dentro da pasta *postman*, disponibilizo o arquivo de exportação do Postman, [[arquivo Postman clique aqui]](https://gitlab.com/ericrodriguesfer/cubos-vacancy-challenge/-/blob/master/postman/Cubos%20Challenge.postman_collection.json), basta fazer o download deste arquivo e ir em seu Postman e importar esse arquivo que será criado uma coleção sem sua workspace e dentro dela terá todas as requisições que podem ser feitas ao projeto, bem como suas urls, headers, params e bodys definidos e previamente preenchidos.
+Caso queira testar/realizar as requisições/explorar o projeto por alguma ferramenta dedicada para depurar e executar apis/back-end, dentro da pasta *postman*, disponibilizo o arquivo de exportação do Postman, [[arquivo Postman clique aqui]](https://github.com/ericrodriguesfer/cubos-challenge/blob/master/postman/Cubos%20Challenge.postman_collection.json), basta fazer o download deste arquivo e ir em seu Postman e importar esse arquivo que será criado uma coleção sem sua workspace e dentro dela terá todas as requisições que podem ser feitas ao projeto, bem como suas urls, headers, params e bodys definidos e previamente preenchidos.
 
 ## Documentação de Requisições
 
