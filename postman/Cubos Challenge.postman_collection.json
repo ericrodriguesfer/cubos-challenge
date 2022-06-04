@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "08a3deb4-25cc-40be-8d69-5587ad7339c5",
+		"name": "Cubos Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14591204"
+	},
+	"item": [
+		{
+			"name": "List Rules",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/scheduling",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"scheduling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Avaliable Times",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/scheduling/04-06-2022/06-06-2022",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"scheduling",
+						"04-06-2022",
+						"06-06-2022"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Rule",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/scheduling/7e9dc9d0-966f-4903-8806-51c37809e5e4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"scheduling",
+						"7e9dc9d0-966f-4903-8806-51c37809e5e4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Rule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": 0,\n    \"day\": \"06-06-2022\",\n    \"intervals\": [\n        {\n            \"start\": \"12:00\",\n            \"end\": \"13:00\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/scheduling",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"scheduling"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
