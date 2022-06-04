@@ -241,7 +241,7 @@ Esse *endpoint* é responsável por receber uma regra de atendimento e a salvá-
 ### Apagar regra
 Esse *endpoint* deverá receber um id da uma regra via *params*, id esse que é o UUID associado a cade regra quando a mesma é cadastrada, e realizar a deleção da mesma do banco de dados, caso a mesma se encontre registrada lá.
 * Endpoint: `http://localhost:3333/scheduling/<ruleId>`
-* Exemplo da requisição: `http://localhost:8080/graph/a58b61ca-2318-477b-86b8-6ee907f6b06f`
+* Exemplo da requisição: `http://localhost:3333/scheduling/a58b61ca-2318-477b-86b8-6ee907f6b06f`
 * HTTP Method: DELETE
 * HTTP Success Response Code: OK (200)
 * HTTP Error Response Code: NOT FOUND (404)
