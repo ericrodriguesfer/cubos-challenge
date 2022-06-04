@@ -1,7 +1,7 @@
-import app from './app/app';
+import app from './app/App';
 
-app.listen(process.env.PORT || 3333, async () =>
-  console.log(
-    `server was started on url http://localhost:${process.env.PORT || 3333}`,
-  ),
+const port = process.env.PORT || 3333;
+
+app.listen(port, async () =>
+  console.log(`server was started on url http://localhost:${port}`),
 );

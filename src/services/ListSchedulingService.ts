@@ -1,5 +1,5 @@
-import Scheduling from '../models/scheduling';
-import SchedulingRepository from '../repositorys/scheduling.repository';
+import Scheduling from '../models/Scheduling';
+import SchedulingRepository from '../repositorys/SchedulingRepository';
 
 class ListSchedulingService {
   private schedulingRepository: SchedulingRepository;
@@ -9,7 +9,7 @@ class ListSchedulingService {
   }
 
   async execute(): Promise<Array<Scheduling>> {
-    return this.schedulingRepository.listAll();
+    return this.schedulingRepository.find();
   }
 }
 

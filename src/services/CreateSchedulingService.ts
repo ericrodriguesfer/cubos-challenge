@@ -1,10 +1,12 @@
 import moment from 'moment';
-import Frequency from '../enums/frequency';
-import Interval from '../models/interval';
-import Scheduling from '../models/scheduling';
-import IIntersectionHours from '../providers/hours/intersection/contract/intersectionHours.interface';
-import IntersectionHoursImplementations from '../providers/hours/intersection/implementations/intersectionHours.implementations';
-import SchedulingRepository from '../repositorys/scheduling.repository';
+import { BAD_REQUEST, CONFLICT } from '../constants/HttpStatus';
+import Frequency from '../enums/Frequency';
+import AppError from '../errors/AppError';
+import Interval from '../models/Interval';
+import Scheduling from '../models/Scheduling';
+import IIntersectionHours from '../providers/hours/intersection/contract/IntersectionHoursContract';
+import IntersectionHoursImplementations from '../providers/hours/intersection/implementations/IntersectionHoursImplementations';
+import SchedulingRepository from '../repositorys/SchedulingRepository';
 
 class CreateSchedulingService {
   private schedulingRepository: SchedulingRepository;
@@ -22,9 +24,15 @@ class CreateSchedulingService {
     intervals,
   }: Omit<Scheduling, 'id'>): Promise<Scheduling> {
     if (type === Frequency.DAY && !day) {
-      throw new Error('A day scheduling needs to have a date associated.');
+      throw new AppError(
+        'A day scheduling needs to have a date associated',
+        BAD_REQUEST,
+      );
     } else if (type === Frequency.WEEKLY && !daysOnWeek) {
-      throw new Error('A weekly scheduling needs to have a date associated.');
+      throw new AppError(
+        'A weekly scheduling needs to have a date associated',
+        BAD_REQUEST,
+      );
     }
 
     const intervalsMounted: Array<Interval> = intervals.map(
@@ -35,7 +43,11 @@ class CreateSchedulingService {
       if (
         !moment(interval.start, 'HH:mm').isBefore(moment(interval.end, 'HH:mm'))
       ) {
-        throw new Error('An interval cannot have the beginning after the end.');
+        throw new AppError(
+          'An interval cannot have the beginning after the end',
+          CONFLICT,
+          409,
+        );
       }
     });
 
@@ -44,7 +56,7 @@ class CreateSchedulingService {
     );
 
     if (existsIntersection) {
-      throw new Error('Ranges cannot intersect each other.');
+      throw new AppError('Ranges cannot intersect each other', CONFLICT, 409);
     }
 
     const schedulingCreated: Scheduling =

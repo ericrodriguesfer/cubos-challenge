@@ -1,4 +1,4 @@
-import Scheduling from '../../../../models/scheduling';
+import Scheduling from '../../../../models/Scheduling';
 
 interface ISaveJson {
   saveJson(schedulings: Array<Scheduling>): Promise<void>;
