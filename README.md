@@ -70,9 +70,9 @@ Requisição HTTP -> Controller -> Service -> Repository -> Entity
 
 Primeiro faça um clone do projeto para sua máquina, assim escolha um local em seu computador que acha adequado para tal, e siga os passos/comandos a baixo em um terminal de sua preferência, executando um por vez, uma após o final da execução do outro:
 ```bash
-git clone https://gitlab.com/ericrodriguesfer/cubos-vacancy-challenge.git
+git clone https://gitlab.com/ericrodriguesfer/cubos-challenge.git
 
-cd cubos-vacancy-challenge
+cd cubos-challenge
 
 # Use um desses três comandos a baixo, ambos fazem a mesma coisa
 yarn         # Opção 01
