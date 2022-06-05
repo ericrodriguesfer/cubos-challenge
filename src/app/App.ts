@@ -1,7 +1,7 @@
 import { errors } from 'celebrate';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express, { Express, NextFunction, Request } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import AppError from '../errors/AppError';
 import routes from '../routes';
