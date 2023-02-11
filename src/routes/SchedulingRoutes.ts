@@ -1,6 +1,6 @@
 import { celebrate, Segments } from 'celebrate';
 import { Router } from 'express';
-import SchedulingController from '../controllers/SchedulingController';
+import { SchedulingController } from '../controllers/SchedulingController';
 import {
   createSchedulingSchema,
   deleteSchedulingSchema,
@@ -27,4 +27,4 @@ schedulingRoutes.delete(
   schedulingController.delete,
 );
 
-export default schedulingRoutes;
+export { schedulingRoutes };

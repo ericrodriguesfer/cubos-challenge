@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import schedulingRoutes from './SchedulingRoutes';
+import { schedulingRoutes } from './SchedulingRoutes';
 
 const routes: Router = Router();
 
 routes.use('/scheduling', schedulingRoutes);
 
-export default routes;
+export { routes };

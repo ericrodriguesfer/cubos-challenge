@@ -8,4 +8,4 @@ class Interval {
   }
 }
 
-export default Interval;
+export { Interval };

@@ -1,7 +1,8 @@
-import { NOT_FOUND } from '../constants/HttpStatus';
-import AppError from '../errors/AppError';
-import Scheduling from '../models/Scheduling';
-import SchedulingRepository from '../repositorys/SchedulingRepository';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+
+import { AppError } from '../errors/AppError';
+import { Scheduling } from '../models/Scheduling';
+import { SchedulingRepository } from '../repositorys/SchedulingRepository';
 
 class DeleteSchedulingService {
   private schedulingRepository: SchedulingRepository;
@@ -17,8 +18,8 @@ class DeleteSchedulingService {
     if (!scheduling) {
       throw new AppError(
         'This scheduling not found in our database',
-        NOT_FOUND,
-        404,
+        ReasonPhrases.NOT_FOUND,
+        StatusCodes.NOT_FOUND,
       );
     }
 
@@ -31,4 +32,4 @@ class DeleteSchedulingService {
   }
 }
 
-export default DeleteSchedulingService;
+export { DeleteSchedulingService };

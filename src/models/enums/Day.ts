@@ -8,4 +8,4 @@ enum Day {
   SATURDAY,
 }
 
-export default Day;
+export { Day };

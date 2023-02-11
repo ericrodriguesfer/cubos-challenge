@@ -1,5 +1,5 @@
-import Scheduling from '../models/Scheduling';
-import SchedulingRepository from '../repositorys/SchedulingRepository';
+import { Scheduling } from '../models/Scheduling';
+import { SchedulingRepository } from '../repositorys/SchedulingRepository';
 
 class ListSchedulingService {
   private schedulingRepository: SchedulingRepository;
@@ -13,4 +13,4 @@ class ListSchedulingService {
   }
 }
 
-export default ListSchedulingService;
+export { ListSchedulingService };

@@ -1,20 +1,17 @@
 import moment from 'moment';
-import { BAD_REQUEST, CONFLICT } from '../constants/HttpStatus';
-import Frequency from '../enums/Frequency';
-import AppError from '../errors/AppError';
-import Interval from '../models/Interval';
-import Scheduling from '../models/Scheduling';
-import IIntersectionHours from '../providers/hours/intersection/contract/IntersectionHoursContract';
-import IntersectionHoursImplementations from '../providers/hours/intersection/implementations/IntersectionHoursImplementations';
-import SchedulingRepository from '../repositorys/SchedulingRepository';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+
+import { Frequency } from '../models/enums/Frequency';
+import { AppError } from '../errors/AppError';
+import { Interval } from '../models/Interval';
+import { Scheduling } from '../models/Scheduling';
+import { SchedulingRepository } from '../repositorys/SchedulingRepository';
 
 class CreateSchedulingService {
   private schedulingRepository: SchedulingRepository;
-  private intersectionHours: IIntersectionHours;
 
   constructor(schedulingRepository: SchedulingRepository) {
     this.schedulingRepository = schedulingRepository;
-    this.intersectionHours = new IntersectionHoursImplementations();
   }
 
   async execute({
@@ -26,12 +23,14 @@ class CreateSchedulingService {
     if (type === Frequency.DAY && !day) {
       throw new AppError(
         'A day scheduling needs to have a date associated',
-        BAD_REQUEST,
+        ReasonPhrases.BAD_REQUEST,
+        StatusCodes.BAD_REQUEST,
       );
     } else if (type === Frequency.WEEKLY && !daysOnWeek) {
       throw new AppError(
         'A weekly scheduling needs to have a date associated',
-        BAD_REQUEST,
+        ReasonPhrases.BAD_REQUEST,
+        StatusCodes.BAD_REQUEST,
       );
     }
 
@@ -45,18 +44,22 @@ class CreateSchedulingService {
       ) {
         throw new AppError(
           'An interval cannot have the beginning after the end',
-          CONFLICT,
-          409,
+          ReasonPhrases.CONFLICT,
+          StatusCodes.CONFLICT,
         );
       }
     });
 
-    const existsIntersection: boolean = await this.intersectionHours.exists(
+    const existsIntersection: boolean = await this.intersectionHours(
       intervalsMounted,
     );
 
     if (existsIntersection) {
-      throw new AppError('Ranges cannot intersect each other', CONFLICT, 409);
+      throw new AppError(
+        'Ranges cannot intersect each other',
+        ReasonPhrases.CONFLICT,
+        StatusCodes.CONFLICT,
+      );
     }
 
     const schedulingCreated: Scheduling =
@@ -69,6 +72,37 @@ class CreateSchedulingService {
 
     return schedulingCreated;
   }
+
+  private async intersectionHours(intervals: Interval[]): Promise<boolean> {
+    let intersaction: boolean = false;
+
+    if (intervals.length > 1) {
+      intervals.forEach((firstInterval: Interval, firstIndex: number) => {
+        intervals.forEach((secondInterval: Interval, secondIndex: number) => {
+          if (firstIndex !== secondIndex) {
+            const firstStartHours = moment(firstInterval.start, 'HH:mm');
+            const firstEndHours = moment(firstInterval.end, 'HH:mm');
+            const secondStartHours = moment(secondInterval.start, 'HH:mm');
+            const secondEndHours = moment(secondInterval.end, 'HH:mm');
+
+            if (
+              (firstStartHours.isSame(secondStartHours) &&
+                firstEndHours.isSame(secondEndHours)) ||
+              (firstStartHours.isBetween(secondStartHours, secondEndHours) &&
+                !firstStartHours.isSame(secondEndHours)) ||
+              secondStartHours.isBetween(firstStartHours, firstEndHours) ||
+              firstEndHours.isBetween(secondStartHours, secondEndHours) ||
+              secondEndHours.isBetween(firstStartHours, firstEndHours)
+            ) {
+              intersaction = true;
+            }
+          }
+        });
+      });
+    }
+
+    return intersaction;
+  }
 }
 
-export default CreateSchedulingService;
+export { CreateSchedulingService };

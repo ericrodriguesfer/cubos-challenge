@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
-import Scheduling from '../models/Scheduling';
-import SchedulingRepository from '../repositorys/SchedulingRepository';
-import CreateSchedulingService from '../services/CreateSchedulingService';
-import DeleteSchedulingService from '../services/DeleteSchedulingService';
-import ListAvaliableTimesService from '../services/ListAvaliableTimesService';
-import ListSchedulingService from '../services/ListSchedulingService';
+import { StatusCodes } from 'http-status-codes';
+
+import { Scheduling } from '../models/Scheduling';
+import { SchedulingRepository } from '../repositorys/SchedulingRepository';
+import { CreateSchedulingService } from '../services/CreateSchedulingService';
+import { DeleteSchedulingService } from '../services/DeleteSchedulingService';
+import { ListAvaliableTimesService } from '../services/ListAvaliableTimesService';
+import { ListSchedulingService } from '../services/ListSchedulingService';
 
 const schedulingRepository: SchedulingRepository = new SchedulingRepository();
 
@@ -16,7 +18,7 @@ class SchedulingController {
     const schedulings: Array<Scheduling> =
       await listSchedulingService.execute();
 
-    return response.json(schedulings);
+    return response.status(StatusCodes.OK).json(schedulings);
   }
 
   async listAvailable(request: Request, response: Response): Promise<Response> {
@@ -30,7 +32,7 @@ class SchedulingController {
       end,
     });
 
-    return response.json(avaliables);
+    return response.status(StatusCodes.OK).json(avaliables);
   }
 
   async create(request: Request, response: Response): Promise<Response> {
@@ -46,7 +48,7 @@ class SchedulingController {
       intervals,
     });
 
-    return response.json({
+    return response.status(StatusCodes.OK).json({
       message: 'Scheduling create with success!',
       scheduling: createScheduling,
     });
@@ -62,11 +64,11 @@ class SchedulingController {
       { id },
     );
 
-    return response.json({
+    return response.status(StatusCodes.OK).json({
       message: 'Scheduling deleted with success!',
       scheduling: deletedScheduling,
     });
   }
 }
 
-export default SchedulingController;
+export { SchedulingController };

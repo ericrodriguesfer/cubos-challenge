@@ -3,4 +3,4 @@ enum Frequency {
   DAILY,
   WEEKLY,
 }
-export default Frequency;
+export { Frequency };

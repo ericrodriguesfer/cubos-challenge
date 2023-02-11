@@ -1,17 +1,18 @@
-class AppError {
-  public readonly message: string;
-  public readonly status: string;
-  public readonly code: number;
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+
+class AppError extends Error {
+  public readonly status: ReasonPhrases;
+  public readonly code: StatusCodes;
 
   constructor(
     message: string,
-    status: string = 'Bad Request',
-    code: number = 400,
+    status: ReasonPhrases = ReasonPhrases.BAD_REQUEST,
+    code: StatusCodes = StatusCodes.BAD_REQUEST,
   ) {
-    this.message = message;
+    super(message);
     this.status = status;
     this.code = code;
   }
 }
 
-export default AppError;
+export { AppError };

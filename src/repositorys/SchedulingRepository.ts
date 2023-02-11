@@ -1,18 +1,15 @@
-import Scheduling from '../models/Scheduling';
-import ILoadJson from '../providers/json/load/contract/LoadJsonContract';
-import LoadJsonImplementations from '../providers/json/load/implementations/LoadJsonImplementations';
-import ISaveJson from '../providers/json/save/contract/SaveJsonContract';
-import SaveJsonImplementations from '../providers/json/save/implementations/SaveJsonImplementations';
+import path from 'path';
+import files from 'fs';
+
+import { Scheduling } from '../models/Scheduling';
+
+const PATH_JSON = path.resolve(__dirname, '..', 'database', 'data.json');
 
 class SchedulingRepository {
   private schedulings: Array<Scheduling>;
-  private load: ILoadJson;
-  private save: ISaveJson;
 
   constructor() {
     this.schedulings = [];
-    this.load = new LoadJsonImplementations();
-    this.save = new SaveJsonImplementations();
   }
 
   public async find(): Promise<Array<Scheduling>> {
@@ -35,7 +32,7 @@ class SchedulingRepository {
 
     this.schedulings.push(scheduling);
 
-    await this.save.saveJson(this.schedulings);
+    await this.save(this.schedulings);
     await this.sync();
 
     return scheduling;
@@ -50,7 +47,7 @@ class SchedulingRepository {
 
     this.schedulings.splice(index, 1);
 
-    await this.save.saveJson(this.schedulings);
+    await this.save(this.schedulings);
     await this.sync();
 
     return scheduling;
@@ -66,10 +63,22 @@ class SchedulingRepository {
     return scheduling;
   }
 
+  private async save(schedulings: Array<Scheduling>): Promise<void> {
+    files.writeFileSync(
+      PATH_JSON,
+      JSON.stringify(schedulings, null, 2),
+      'utf-8',
+    );
+  }
+
   private async sync(): Promise<void> {
-    const schedulingsSaved: Array<Scheduling> = await this.load.loadJson();
+    const schedulingsSaved: Array<Scheduling> = JSON.parse(
+      files.existsSync(PATH_JSON)
+        ? files.readFileSync(PATH_JSON, 'utf-8').toString()
+        : '""',
+    );
     this.schedulings = schedulingsSaved;
   }
 }
 
-export default SchedulingRepository;
+export { SchedulingRepository };

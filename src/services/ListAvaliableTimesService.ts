@@ -1,11 +1,12 @@
 import moment, { Moment } from 'moment';
-import { CONFLICT } from '../constants/HttpStatus';
-import Day from '../enums/Day';
-import Frequency from '../enums/Frequency';
-import AppError from '../errors/AppError';
-import Interval from '../models/Interval';
-import Scheduling from '../models/Scheduling';
-import SchedulingRepository from '../repositorys/SchedulingRepository';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+
+import { Day } from '../models/enums/Day';
+import { Frequency } from '../models/enums/Frequency';
+import { AppError } from '../errors/AppError';
+import { Interval } from '../models/Interval';
+import { Scheduling } from '../models/Scheduling';
+import { SchedulingRepository } from '../repositorys/SchedulingRepository';
 
 interface ListAvaliableTimesDTO {
   start: string;
@@ -35,8 +36,8 @@ class ListAvaliableTimesService {
     if (startDate.isAfter(endDate)) {
       throw new AppError(
         'The start date cannot be later than the end date',
-        CONFLICT,
-        409,
+        ReasonPhrases.CONFLICT,
+        StatusCodes.CONFLICT,
       );
     }
 
@@ -130,4 +131,4 @@ class ListAvaliableTimesService {
   }
 }
 
-export default ListAvaliableTimesService;
+export { ListAvaliableTimesService };
